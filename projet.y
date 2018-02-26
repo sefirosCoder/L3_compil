@@ -4,6 +4,7 @@
   #include <stdio.h>
   #include "type_synth.h"
   #include "header.h"
+  #include "liste.h"
 
   int yylex(void);
   void yyerror(char const *);
@@ -11,9 +12,6 @@
   void instruct1(char const *, char constc );
   void comment0(char const *);
   void type_error();	  
-  #define STACK_CAPACITY 50
-  static int stack[STACK_CAPACITY];
-  static size_t stack_size = 0;
 %}
 %union {
   int val;
@@ -53,9 +51,9 @@ lignes expr error ';;' { stack_size = 0; }
 ;
 
 expr :
-expr    { }
+expr   {}
 | LET expr {}
-| NUMBER {}
+| NUMBER {stack[] = ; stack_size++;}
 |FALSE {}
 |TRUE {}
 ;

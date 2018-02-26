@@ -12,6 +12,7 @@
 "if"  {return IF;}
 "then"  {return THEN;}
 "else"  {return ELSE;}
+"="  {return EQUALS;}
 [[:blank:]]
 .|\n {return yytext[0];}
 %%
