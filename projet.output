@@ -1,0 +1,718 @@
+Non-terminaux inutiles dans la grammaire
+
+   type
+
+
+Terminaux inutilisés dans la grammaire
+
+   FUNCTION
+   REC
+   INT
+
+
+Règles inutiles dans la grammaire
+
+   21 type: INT
+
+
+État 36 conflits: 1 décalage/réduction
+État 37 conflits: 6 décalage/réduction
+État 39 conflits: 1 décalage/réduction
+État 40 conflits: 1 décalage/réduction
+État 41 conflits: 1 décalage/réduction
+État 42 conflits: 1 décalage/réduction
+État 43 conflits: 6 décalage/réduction
+État 44 conflits: 1 décalage/réduction
+État 51 conflits: 1 décalage/réduction
+
+
+Grammaire
+
+    0 $accept: lignes $end
+
+    1 lignes: lignes expr error ENDLIGNE '\n'
+    2       | lignes error ENDLIGNE '\n'
+    3       | expr error ENDLIGNE '\n'
+    4       | error ENDLIGNE '\n'
+    5       | lignes expr ENDLIGNE '\n'
+    6       | lignes ENDLIGNE '\n'
+    7       | expr ENDLIGNE '\n'
+    8       | ENDLIGNE '\n'
+
+    9 expr: expr IN expr
+   10     | LET ID EQUALS expr
+   11     | IF expr THEN expr
+   12     | IF expr THEN expr ELSE expr
+   13     | expr '+' expr
+   14     | expr '-' expr
+   15     | expr '/' expr
+   16     | expr '*' expr
+   17     | expr EQUALS expr
+   18     | '(' expr ')'
+   19     | ID
+   20     | NUMBER
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+$end (0) 0
+'\n' (10) 1 2 3 4 5 6 7 8
+'(' (40) 18
+')' (41) 18
+'*' (42) 16
+'+' (43) 13
+'-' (45) 14
+'/' (47) 15
+error (256) 1 2 3 4
+NUMBER (258) 20
+LET (259) 10
+IN (260) 9
+IF (261) 11 12
+THEN (262) 11 12
+ELSE (263) 12
+ID (264) 10 19
+EQUALS (265) 10 17
+FUNCTION (266)
+REC (267)
+ENDLIGNE (268) 1 2 3 4 5 6 7 8
+INT (269)
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+$accept (22)
+    à gauche: 0
+lignes (23)
+    à gauche: 1 2 3 4 5 6 7 8, à droite: 0 1 2 5 6
+expr (24)
+    à gauche: 9 10 11 12 13 14 15 16 17 18 19 20, à droite: 1 3 5
+    7 9 10 11 12 13 14 15 16 17 18
+
+
+État 0
+
+    0 $accept: . lignes $end
+
+    error     décalage et aller à l'état 1
+    NUMBER    décalage et aller à l'état 2
+    LET       décalage et aller à l'état 3
+    IF        décalage et aller à l'état 4
+    ID        décalage et aller à l'état 5
+    ENDLIGNE  décalage et aller à l'état 6
+    '('       décalage et aller à l'état 7
+
+    lignes  aller à l'état 8
+    expr    aller à l'état 9
+
+
+État 1
+
+    4 lignes: error . ENDLIGNE '\n'
+
+    ENDLIGNE  décalage et aller à l'état 10
+
+
+État 2
+
+   20 expr: NUMBER .
+
+    $défaut  réduction par utilisation de la règle 20 (expr)
+
+
+État 3
+
+   10 expr: LET . ID EQUALS expr
+
+    ID  décalage et aller à l'état 11
+
+
+État 4
+
+   11 expr: IF . expr THEN expr
+   12     | IF . expr THEN expr ELSE expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 12
+
+
+État 5
+
+   19 expr: ID .
+
+    $défaut  réduction par utilisation de la règle 19 (expr)
+
+
+État 6
+
+    8 lignes: ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 13
+
+
+État 7
+
+   18 expr: '(' . expr ')'
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 14
+
+
+État 8
+
+    0 $accept: lignes . $end
+    1 lignes: lignes . expr error ENDLIGNE '\n'
+    2       | lignes . error ENDLIGNE '\n'
+    5       | lignes . expr ENDLIGNE '\n'
+    6       | lignes . ENDLIGNE '\n'
+
+    $end      décalage et aller à l'état 15
+    error     décalage et aller à l'état 16
+    NUMBER    décalage et aller à l'état 2
+    LET       décalage et aller à l'état 3
+    IF        décalage et aller à l'état 4
+    ID        décalage et aller à l'état 5
+    ENDLIGNE  décalage et aller à l'état 17
+    '('       décalage et aller à l'état 7
+
+    expr  aller à l'état 18
+
+
+État 9
+
+    3 lignes: expr . error ENDLIGNE '\n'
+    7       | expr . ENDLIGNE '\n'
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    error     décalage et aller à l'état 19
+    IN        décalage et aller à l'état 20
+    EQUALS    décalage et aller à l'état 21
+    ENDLIGNE  décalage et aller à l'état 22
+    '+'       décalage et aller à l'état 23
+    '-'       décalage et aller à l'état 24
+    '*'       décalage et aller à l'état 25
+    '/'       décalage et aller à l'état 26
+
+
+État 10
+
+    4 lignes: error ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 27
+
+
+État 11
+
+   10 expr: LET ID . EQUALS expr
+
+    EQUALS  décalage et aller à l'état 28
+
+
+État 12
+
+    9 expr: expr . IN expr
+   11     | IF expr . THEN expr
+   12     | IF expr . THEN expr ELSE expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    IN      décalage et aller à l'état 20
+    THEN    décalage et aller à l'état 29
+    EQUALS  décalage et aller à l'état 21
+    '+'     décalage et aller à l'état 23
+    '-'     décalage et aller à l'état 24
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+
+État 13
+
+    8 lignes: ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 8 (lignes)
+
+
+État 14
+
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+   18     | '(' expr . ')'
+
+    IN      décalage et aller à l'état 20
+    EQUALS  décalage et aller à l'état 21
+    '+'     décalage et aller à l'état 23
+    '-'     décalage et aller à l'état 24
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+    ')'     décalage et aller à l'état 30
+
+
+État 15
+
+    0 $accept: lignes $end .
+
+    $défaut  accepter
+
+
+État 16
+
+    2 lignes: lignes error . ENDLIGNE '\n'
+
+    ENDLIGNE  décalage et aller à l'état 31
+
+
+État 17
+
+    6 lignes: lignes ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 32
+
+
+État 18
+
+    1 lignes: lignes expr . error ENDLIGNE '\n'
+    5       | lignes expr . ENDLIGNE '\n'
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    error     décalage et aller à l'état 33
+    IN        décalage et aller à l'état 20
+    EQUALS    décalage et aller à l'état 21
+    ENDLIGNE  décalage et aller à l'état 34
+    '+'       décalage et aller à l'état 23
+    '-'       décalage et aller à l'état 24
+    '*'       décalage et aller à l'état 25
+    '/'       décalage et aller à l'état 26
+
+
+État 19
+
+    3 lignes: expr error . ENDLIGNE '\n'
+
+    ENDLIGNE  décalage et aller à l'état 35
+
+
+État 20
+
+    9 expr: expr IN . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 36
+
+
+État 21
+
+   17 expr: expr EQUALS . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 37
+
+
+État 22
+
+    7 lignes: expr ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 38
+
+
+État 23
+
+   13 expr: expr '+' . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 39
+
+
+État 24
+
+   14 expr: expr '-' . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 40
+
+
+État 25
+
+   16 expr: expr '*' . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 41
+
+
+État 26
+
+   15 expr: expr '/' . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 42
+
+
+État 27
+
+    4 lignes: error ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 4 (lignes)
+
+
+État 28
+
+   10 expr: LET ID EQUALS . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 43
+
+
+État 29
+
+   11 expr: IF expr THEN . expr
+   12     | IF expr THEN . expr ELSE expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 44
+
+
+État 30
+
+   18 expr: '(' expr ')' .
+
+    $défaut  réduction par utilisation de la règle 18 (expr)
+
+
+État 31
+
+    2 lignes: lignes error ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 45
+
+
+État 32
+
+    6 lignes: lignes ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 6 (lignes)
+
+
+État 33
+
+    1 lignes: lignes expr error . ENDLIGNE '\n'
+
+    ENDLIGNE  décalage et aller à l'état 46
+
+
+État 34
+
+    5 lignes: lignes expr ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 47
+
+
+État 35
+
+    3 lignes: expr error ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 48
+
+
+État 36
+
+    9 expr: expr . IN expr
+    9     | expr IN expr .
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    IN      décalage et aller à l'état 20
+    EQUALS  décalage et aller à l'état 21
+    '+'     décalage et aller à l'état 23
+    '-'     décalage et aller à l'état 24
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+    EQUALS    [réduction par utilisation de la règle 9 (expr)]
+    $défaut  réduction par utilisation de la règle 9 (expr)
+
+
+État 37
+
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+   17     | expr EQUALS expr .
+
+    IN      décalage et aller à l'état 20
+    EQUALS  décalage et aller à l'état 21
+    '+'     décalage et aller à l'état 23
+    '-'     décalage et aller à l'état 24
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+    IN        [réduction par utilisation de la règle 17 (expr)]
+    EQUALS    [réduction par utilisation de la règle 17 (expr)]
+    '+'       [réduction par utilisation de la règle 17 (expr)]
+    '-'       [réduction par utilisation de la règle 17 (expr)]
+    '*'       [réduction par utilisation de la règle 17 (expr)]
+    '/'       [réduction par utilisation de la règle 17 (expr)]
+    $défaut  réduction par utilisation de la règle 17 (expr)
+
+
+État 38
+
+    7 lignes: expr ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 7 (lignes)
+
+
+État 39
+
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   13     | expr '+' expr .
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    EQUALS  décalage et aller à l'état 21
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+    EQUALS    [réduction par utilisation de la règle 13 (expr)]
+    $défaut  réduction par utilisation de la règle 13 (expr)
+
+
+État 40
+
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   14     | expr '-' expr .
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    EQUALS  décalage et aller à l'état 21
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+    EQUALS    [réduction par utilisation de la règle 14 (expr)]
+    $défaut  réduction par utilisation de la règle 14 (expr)
+
+
+État 41
+
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   16     | expr '*' expr .
+   17     | expr . EQUALS expr
+
+    EQUALS  décalage et aller à l'état 21
+
+    EQUALS    [réduction par utilisation de la règle 16 (expr)]
+    $défaut  réduction par utilisation de la règle 16 (expr)
+
+
+État 42
+
+    9 expr: expr . IN expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   15     | expr '/' expr .
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    EQUALS  décalage et aller à l'état 21
+
+    EQUALS    [réduction par utilisation de la règle 15 (expr)]
+    $défaut  réduction par utilisation de la règle 15 (expr)
+
+
+État 43
+
+    9 expr: expr . IN expr
+   10     | LET ID EQUALS expr .
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    IN      décalage et aller à l'état 20
+    EQUALS  décalage et aller à l'état 21
+    '+'     décalage et aller à l'état 23
+    '-'     décalage et aller à l'état 24
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+    IN        [réduction par utilisation de la règle 10 (expr)]
+    EQUALS    [réduction par utilisation de la règle 10 (expr)]
+    '+'       [réduction par utilisation de la règle 10 (expr)]
+    '-'       [réduction par utilisation de la règle 10 (expr)]
+    '*'       [réduction par utilisation de la règle 10 (expr)]
+    '/'       [réduction par utilisation de la règle 10 (expr)]
+    $défaut  réduction par utilisation de la règle 10 (expr)
+
+
+État 44
+
+    9 expr: expr . IN expr
+   11     | IF expr THEN expr .
+   12     | IF expr THEN expr . ELSE expr
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    IN      décalage et aller à l'état 20
+    ELSE    décalage et aller à l'état 49
+    EQUALS  décalage et aller à l'état 21
+    '+'     décalage et aller à l'état 23
+    '-'     décalage et aller à l'état 24
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+    EQUALS    [réduction par utilisation de la règle 11 (expr)]
+    $défaut  réduction par utilisation de la règle 11 (expr)
+
+
+État 45
+
+    2 lignes: lignes error ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 2 (lignes)
+
+
+État 46
+
+    1 lignes: lignes expr error ENDLIGNE . '\n'
+
+    '\n'  décalage et aller à l'état 50
+
+
+État 47
+
+    5 lignes: lignes expr ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 5 (lignes)
+
+
+État 48
+
+    3 lignes: expr error ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 3 (lignes)
+
+
+État 49
+
+   12 expr: IF expr THEN expr ELSE . expr
+
+    NUMBER  décalage et aller à l'état 2
+    LET     décalage et aller à l'état 3
+    IF      décalage et aller à l'état 4
+    ID      décalage et aller à l'état 5
+    '('     décalage et aller à l'état 7
+
+    expr  aller à l'état 51
+
+
+État 50
+
+    1 lignes: lignes expr error ENDLIGNE '\n' .
+
+    $défaut  réduction par utilisation de la règle 1 (lignes)
+
+
+État 51
+
+    9 expr: expr . IN expr
+   12     | IF expr THEN expr ELSE expr .
+   13     | expr . '+' expr
+   14     | expr . '-' expr
+   15     | expr . '/' expr
+   16     | expr . '*' expr
+   17     | expr . EQUALS expr
+
+    IN      décalage et aller à l'état 20
+    EQUALS  décalage et aller à l'état 21
+    '+'     décalage et aller à l'état 23
+    '-'     décalage et aller à l'état 24
+    '*'     décalage et aller à l'état 25
+    '/'     décalage et aller à l'état 26
+
+    EQUALS    [réduction par utilisation de la règle 12 (expr)]
+    $défaut  réduction par utilisation de la règle 12 (expr)

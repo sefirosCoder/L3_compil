@@ -5,34 +5,36 @@
 typedef struct Element Element;
 struct Element
 {
-	char[10] nvVar;
+	char* nvVar;
 	int value;
 	Element *suivant;
-}
+};
 
 typedef struct Liste Liste;
 struct Liste 
 {
 	Element *premier;
-}
+};
 
-Liste initialisation();
-void insertion(Liste,char[10],int);
-void suppression(Liste);
+Liste *initialisation();
+void insertion(Liste*,char*,int);
+void suppression(Liste*);
+int recherche(Element*,char*,int*);
 
 /*  création d'une liste vide */
-Liste initialisation()
+Liste *initialisation()
 {
 	Liste *liste = malloc(sizeof(Liste));
-	if (liste == NULL || element == NULL)
+	if (liste == NULL)
 	{
 		exit(EXIT_FAILURE);
 	}
+	liste->premier = NULL;
 	
 	return liste;
 }
 /* Ajoute un élément à la liste  */
-void insertion(Liste liste, char[10] name, int val)
+void insertion(Liste *liste, char* name, int val)
 {	
 	Element *element = malloc(sizeof(Element));
 
@@ -49,7 +51,7 @@ void insertion(Liste liste, char[10] name, int val)
 }
 
 /* supprime le dernier élement ajouter à la liste*/
-void suppresion(Liste liste)
+void suppresion(Liste *liste)
 {
 	if (liste == NULL)
 	{
@@ -62,4 +64,21 @@ void suppresion(Liste liste)
 		free(aSupp);
 	}
 }
+
+//recherche la valeur de l'element name dans la liste
+int recherche(Element *element, char *name, int *result){
+	
+	if(element == NULL) {
+		return 0;
+	}
+
+	if(strcmp(element->nvVar,name)==0){
+		*result = element->value;
+		return 1;
+	}
+	
+	return recherche(element->suivant,name,result);
+	
+}
+
 #endif

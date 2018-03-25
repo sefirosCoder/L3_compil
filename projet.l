@@ -1,11 +1,13 @@
 %{
   #include <limits.h>
+  #include <string.h>
   #include "type_synth.h"
-  #include "ex1.tab.h"
+  #include "projet.tab.h"
   void string_to_int(int *v, const char *s);
 %}
 %option noyywrap
 %%
+"int" {yylval.string = strdup(yytext); return INT;}
 [[:digit:]]+  {string_to_int(&yylval.val, yytext); return NUMBER;}
 "let"  {return LET;}
 "in"  {return IN;}
@@ -13,6 +15,10 @@
 "then"  {return THEN;}
 "else"  {return ELSE;}
 "="  {return EQUALS;}
+"function" {return FUNCTION;}
+"rec" {return REC;}
+";;" {return ENDLIGNE;}
+[[:alpha:]]+  { yylval.string=strdup(yytext); return ID;}
 [[:blank:]]
 .|\n {return yytext[0];}
 %%
